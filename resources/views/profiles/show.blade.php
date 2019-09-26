@@ -11,7 +11,10 @@
                 <h1>
                     {{$user->username}}
                 </h1>
-                <a href="{{route('post.create')}}" class="btn btn-primary">Add Post</a>
+                <div>
+                    <a href="{{route('post.create')}}" class="btn btn-primary">Add Post</a>
+                    <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+                </div>
             </div>
             <div class="d-flex mb-3">
                 <div class="pr-5"><strong>{{ $user->posts()->count() }}</strong> posts</div>
