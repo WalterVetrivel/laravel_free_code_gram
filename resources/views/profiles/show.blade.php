@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row mb-5">
         <div class="col-3 p-5">
-            <img src="https://instagram.fcbr1-1.fna.fbcdn.net/vp/513a93ee83379b411df3f50ba198dc82/5E038B38/t51.2885-19/s150x150/22709172_932712323559405_7810049005848625152_n.jpg?_nc_ht=instagram.fcbr1-1.fna.fbcdn.net" alt="Profile Picture" class="rounded-circle">
+            <img src="/storage/{{$user->profile->image}}" alt="Profile Picture" class="rounded-circle w-100">
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex align-items-center justify-content-between">
@@ -12,8 +12,10 @@
                     {{$user->username}}
                 </h1>
                 <div>
-                    <a href="{{route('post.create')}}" class="btn btn-primary">Add Post</a>
-                    <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+                    @can('update', $user->profile)
+                        <a href="{{route('post.create')}}" class="btn btn-primary">Add Post</a>
+                        <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+                    @endcan
                 </div>
             </div>
             <div class="d-flex mb-3">

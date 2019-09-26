@@ -8,8 +8,19 @@
 		</div>
 		<div class="col-4">
 			<div>
-				<h3>{{$post->user->username}}</h3>
-				<p>{{$post->caption}}</p>
+				<div class="d-flex align-items-center mb-3">
+					<img src="/storage/{{$post->user->profile->image}}" alt="{{$post->user->username}}" class="w-25 rounded-circle img-fluid mr-2" style="max-width: 3rem">
+					<p class="m-0 p-0 font-weight-bold">
+						<a href="/profile/{{$post->user->id}}" class="text-dark">{{$post->user->username}}</a>
+					</p>
+				</div>
+				<hr>
+				<p>
+					<span class="m-0 p-0 font-weight-bold">
+						<a href="/profile/{{$post->user->id}}" class="text-dark">{{$post->user->username}}</a>
+					</span>
+					{{$post->caption}}
+				</p>
 			</div>
 		</div>
 	</div>
