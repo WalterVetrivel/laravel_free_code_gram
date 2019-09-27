@@ -12,7 +12,9 @@
                     <h3 class="p-0 m-0 mr-2">
                         {{$user->username}}
                         </h1>
-                        <follow-component user-id="{{$user->id}}"></follow-component>
+                        @if(auth()->user() && $user->id != auth()->user()->id)
+                        <follow-component user-id="{{$user->id}}" follows="{{$follows}}"></follow-component>
+                        @endif
                 </div>
                 <div>
                     @can('update', $user->profile)
@@ -23,8 +25,8 @@
             </div>
             <div class="d-flex mb-3">
                 <div class="pr-5"><strong>{{ $user->posts()->count() }}</strong> posts</div>
-                <div class="pr-5"><strong>30.8k</strong> followers</div>
-                <div class="pr-5"><strong>231</strong> following</div>
+                <div class="pr-5"><strong>{{ $user->profile->followers->count() }}</strong> followers</div>
+                <div class="pr-5"><strong>{{ $user->following->count() }}</strong> following</div>
             </div>
             <div class="font-weight-bold">
                 {{$user->profile->title}}

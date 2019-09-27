@@ -1,19 +1,36 @@
 <template>
   <div>
-    <button class="btn btn-primary btn-sm" @click="followUser">Follow</button>
+    <button class="btn btn-primary btn-sm" @click="followUser" v-text="buttonText"></button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["userId"],
+  props: ["userId", "follows"],
   mounted() {
+    console.log(this.follows);
     console.log("Praise the Lord");
+  },
+  data: function() {
+    return {
+      status: this.follows
+    };
   },
   methods: {
     async followUser() {
-      const result = await axios.post(`/follow/${this.userId}`);
-      console.log(result);
+      try {
+        const result = await axios.post(`/follow/${this.userId}`);
+        this.status = !this.status;
+      } catch (err) {
+        if ((err.response.status = 401)) {
+          window.location = "/login";
+        }
+      }
+    }
+  },
+  computed: {
+    buttonText() {
+      return this.status ? "Unfollow" : "Follow";
     }
   }
 };

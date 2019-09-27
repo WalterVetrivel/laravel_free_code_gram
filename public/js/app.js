@@ -1865,9 +1865,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["userId"],
+  props: ["userId", "follows"],
   mounted: function mounted() {
+    console.log(this.follows);
     console.log("Praise the Lord");
+  },
+  data: function data() {
+    return {
+      status: this.follows
+    };
   },
   methods: {
     followUser: function () {
@@ -1879,19 +1885,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _context.prev = 0;
+                _context.next = 3;
                 return axios.post("/follow/".concat(this.userId));
 
-              case 2:
+              case 3:
                 result = _context.sent;
-                console.log(result);
+                this.status = !this.status;
+                _context.next = 10;
+                break;
 
-              case 4:
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+
+                if (_context.t0.response.status = 401) {
+                  window.location = "/login";
+                }
+
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[0, 7]]);
       }));
 
       function followUser() {
@@ -1900,6 +1917,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return followUser;
     }()
+  },
+  computed: {
+    buttonText: function buttonText() {
+      return this.status ? "Unfollow" : "Follow";
+    }
   }
 });
 
@@ -20264,11 +20286,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      { staticClass: "btn btn-primary btn-sm", on: { click: _vm.followUser } },
-      [_vm._v("Follow")]
-    )
+    _c("button", {
+      staticClass: "btn btn-primary btn-sm",
+      domProps: { textContent: _vm._s(_vm.buttonText) },
+      on: { click: _vm.followUser }
+    })
   ])
 }
 var staticRenderFns = []
