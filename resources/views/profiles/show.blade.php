@@ -11,13 +11,13 @@
                 <div class="d-flex align-items-center mb-3">
                     <h3 class="p-0 m-0 mr-2">
                         {{$user->username}}
-                    </h1>
-                    <button class="btn btn-primary btn-sm">Follow</button>
+                        </h1>
+                        <follow-component user-id="{{$user->id}}"></follow-component>
                 </div>
                 <div>
                     @can('update', $user->profile)
-                        <a href="{{route('post.create')}}" class="btn btn-primary">Add Post</a>
-                        <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+                    <a href="{{route('post.create')}}" class="btn btn-primary">Add Post</a>
+                    <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
                     @endcan
                 </div>
             </div>
