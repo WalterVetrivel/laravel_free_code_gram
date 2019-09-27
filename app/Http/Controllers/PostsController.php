@@ -17,7 +17,8 @@ class PostsController extends Controller
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
 
-        $posts = Post::whereIn('user_id', $users)->latest()->get();
+        // With 'user' is used to avoid N + 1 problem, i.e., fetching the user every time in the foreach with limit 1
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(3);
 
         return view('posts.index', compact('posts'));
     }
